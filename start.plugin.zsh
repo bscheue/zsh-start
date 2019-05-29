@@ -84,5 +84,6 @@ zshexit () {
   cat recent_dirs.txt > temp;
   cat temp | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
   rm temp;
+  cd;
 }
 
