@@ -1,7 +1,7 @@
 # zsh-start
 A simple start screen for zsh
 
-[Example]('images/example.png')
+![Example]('images/example.png')
 
 # Installation
 ### Manual:
