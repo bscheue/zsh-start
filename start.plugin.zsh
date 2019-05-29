@@ -1,4 +1,4 @@
-cat welcome.txt
+cat ~/.oh-my-zsh/custom/plugins/start/welcome.txt
 
 echo "Recently visited directories:"
 
