@@ -53,16 +53,19 @@ else
   echo "No running tmux sessions"
 fi
 
+printf "\nSelect an option: "
 read -r index
 
 if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
+  printf "Going to directory [$(($index))]\n"
   cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - 97)) -lt $tmux_sessions_len ]]
 then
+  printf "Connecting to tmux session [$(($(ord $index) - 96))]\n"
   tmux attach -t "$($LIST[$(($(ord $index) - 96))] | cut -d \: -f $(($(ord $index) - 96)))"
 else
-  echo "Nothing selected"
+  echo "None selected"
 fi
 
 zshexit () {
