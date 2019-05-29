@@ -82,7 +82,7 @@ fi
 zshexit () {
   dirs -lv | cut -c 3- >> $hd/recent_dirs.txt;
   # cd after, to avoid accidentally including the directory
-  cd $hd/start;
+  cd $hd;
   cat recent_dirs.txt > temp;
   cat temp | awk '!seen[$0]++' | tail -n 10 > recent_dirs.txt;
   rm temp;
