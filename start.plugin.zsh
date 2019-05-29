@@ -66,7 +66,7 @@ read -r index
 if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
   printf "Going to directory [$(($index))]\n"
-  cd "$(cat recent_dirs.txt | sed -n $(($index + 1))p)"
+  cd "$(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
