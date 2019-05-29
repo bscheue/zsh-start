@@ -59,16 +59,12 @@ fi
 printf "\nSelect an option: "
 read -r index
 
-  echo $tmux_sessions_len
 if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
   printf "Going to directory [$(($index))]\n"
   cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
-  # still have bug connecting to tmux session
-  # had only a and b open, but pressing c connected to b
-  printf "Connecting to tmux session [$(($(ord $index) - $ord_offset))]\n"
   tmux attach -t $(cat ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
     cut -d \: -f -1)
