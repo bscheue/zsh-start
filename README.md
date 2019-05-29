@@ -1,8 +1,8 @@
 # zsh-start
-**A simple start screen for zsh**
+A simple start screen for zsh
 
 # Installation
-## Manual:
+### Manual:
 First clone this repository onto your machine. This example will use `~/.zsh/zsh-start`:
 ```
 git clone https://github.com/bscheue/zsh-start ~/.zsh/zsh-start
@@ -12,8 +12,7 @@ Then, add the following to your `.zshrc`:
 source ~/.zsh/zsh-start/start.plugin.zsh
 ```
 
-## Oh My Zsh:
-
+### Oh My Zsh:
 First, clone this repository into `$ZSH_CUSTOM/plugins` (by default `~/.oh-my-zsh/custom/plugins`):
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
