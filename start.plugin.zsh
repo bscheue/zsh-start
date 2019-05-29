@@ -85,7 +85,7 @@ zshexit () {
   # cd after, to avoid accidentally including the directory
   cd $ZSH_CUSTOM/plugins/start;
   cat recent_dirs.txt > temp;
-  cat temp | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
+  cat temp | awk '!seen[$0]++' | tail -n 10 > recent_dirs.txt;
   rm temp;
 }
 
