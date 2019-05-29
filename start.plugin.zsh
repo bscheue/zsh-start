@@ -1,12 +1,12 @@
-cd $(dirname ${(%):-%x})
-touch tmux_dirs.txt
-touch recent_dirs.txt
+hd=$(dirname ${(%):-%x})
+touch $hd/tmux_dirs.txt
+touch $hd/recent_dirs.txt
 
-cat welcome.txt
+cat $hd/welcome.txt
 
 echo "Recently visited directories:"
 
-tmux ls > tmux_dirs.txt 2> /dev/null
+tmux ls > $hd/tmux_dirs.txt 2> /dev/null
 sessions=$?
 
 # offset for one indexing into the alphabet using unicode
@@ -25,7 +25,7 @@ ord() {
 
 
 zmodload zsh/mapfile
-recent_dirs=recent_dirs.txt
+recent_dirs=$hd/recent_dirs.txt
 recent_dirs_lines=( "${(f)mapfile[$recent_dirs]}" )
 integer IDXB=1
 integer recent_dirs_len=$#recent_dirs
@@ -37,7 +37,7 @@ do
 done
 
 
-tmux_dirs=tmux_dirs.txt
+tmux_dirs=$hd/tmux_dirs.txt
 tmux_dirs_lines=( "${(f)mapfile[$tmux_dirs]}" )
 integer IDXA=1
 integer tmux_sessions_len=$#tmux_dirs_lines
@@ -70,7 +70,7 @@ then
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
   cd
-  tmux attach -t $(cat tmux_dirs.txt |
+  tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
     cut -d \: -f -1)
 else
@@ -80,10 +80,9 @@ fi
 
 
 zshexit () {
-  cd $(dirname ${(%):-%x});
-  dirs -lv | cut -c 3- >> recent_dirs.txt;
+  dirs -lv | cut -c 3- >> $hd/recent_dirs.txt;
   # cd after, to avoid accidentally including the directory
-  cd $ZSH_CUSTOM/plugins/start;
+  cd $hd/start;
   cat recent_dirs.txt > temp;
   cat temp | awk '!seen[$0]++' | tail -n 10 > recent_dirs.txt;
   rm temp;
