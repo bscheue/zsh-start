@@ -2,11 +2,12 @@ cat welcome.txt
 
 echo "Pick an index from below:"
 echo ""
-echo "Recently visited directories"
+echo "Recently visited directories:"
 
 tmux ls > ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt 2> /dev/null
 sessions=$?
 
+# attribution for chr and ord functions:
 # https://unix.stackexchange.com/questions/92447/bash-script-to-get-ascii-values-for-alphabet
 chr() {
   [ "$1" -lt 256 ] || return 1
@@ -56,7 +57,7 @@ fi
 
 read -r index
 
-if [[ $index =~ [0-9] ]]
+if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
   cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - 97)) -lt $tmux_sessions_len ]]
