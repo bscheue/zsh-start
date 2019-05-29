@@ -1,6 +1,8 @@
 # zsh-start
 A simple start screen for zsh
 
+[Example]('images/example.png')
+
 # Installation
 ### Manual:
 First clone this repository onto your machine. This example will use `~/.zsh/zsh-start`:
