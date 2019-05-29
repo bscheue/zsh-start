@@ -1,4 +1,7 @@
 cd $(dirname ${(%):-%x})
+touch tmux_dirs.txt
+touch recent_dirs.txt
+
 cat welcome.txt
 
 echo "Recently visited directories:"
