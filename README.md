@@ -24,6 +24,6 @@ Use this plugin to jump to recently visited directories upon starting zsh.
 Upon opening, you'll be shown your ten (distinct) most recently visited directories
 numbered 0-9, along with any running tmux sessions.
 Pressing a number along with enter will take you to that directory,
-while pressing a character with attach to the corresponding tmux session.
+while pressing a character will attach to the corresponding tmux session.
 Pressing any other key along with enter (or just enter itself) will continue to startup
 like normal and take you to your home directory.
