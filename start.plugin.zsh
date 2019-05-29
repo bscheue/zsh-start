@@ -1,8 +1,8 @@
-cat ~/.oh-my-zsh/custom/plugins/start/welcome.txt
+cat $ZSH_CUSTOM/plugins/start/welcome.txt
 
 echo "Recently visited directories:"
 
-tmux ls > ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt 2> /dev/null
+tmux ls > $ZSH_CUSTOM/plugins/start/tmux_dirs.txt 2> /dev/null
 sessions=$?
 
 # offset for one indexing into the alphabet using unicode
@@ -21,7 +21,7 @@ ord() {
 
 
 zmodload zsh/mapfile
-recent_dirs=~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt
+recent_dirs=$ZSH_CUSTOM/plugins/start/recent_dirs.txt
 recent_dirs_lines=( "${(f)mapfile[$recent_dirs]}" )
 integer IDXB=1
 integer recent_dirs_len=$#recent_dirs
@@ -33,7 +33,7 @@ do
 done
 
 
-tmux_dirs=~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt
+tmux_dirs=$ZSH_CUSTOM/plugins/start/tmux_dirs.txt
 tmux_dirs_lines=( "${(f)mapfile[$tmux_dirs]}" )
 integer IDXA=1
 integer tmux_sessions_len=$#tmux_dirs_lines
@@ -62,10 +62,10 @@ read -r index
 if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
   printf "Going to directory [$(($index))]\n"
-  cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
+  cd "$(cat $ZSH_CUSTOM/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
-  tmux attach -t $(cat ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt |
+  tmux attach -t $(cat $ZSH_CUSTOM/plugins/start/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
     cut -d \: -f -1)
 else
@@ -73,9 +73,9 @@ else
 fi
 
 zshexit () {
-  dirs -lv | cut -c 3- >> ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt;
+  dirs -lv | cut -c 3- >> $ZSH_CUSTOM/plugins/start/recent_dirs.txt;
   # cd after, to avoid accidentally including the directory
-  cd ~/.oh-my-zsh/custom/plugins/start;
+  cd $ZSH_CUSTOM/plugins/start;
   cat recent_dirs.txt > temp;
   cat temp | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
   rm temp;
