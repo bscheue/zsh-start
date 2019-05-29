@@ -62,6 +62,8 @@ then
   cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - 97)) -lt $tmux_sessions_len ]]
 then
+  # still have bug connecting to tmux session
+  # had only a and b open, but pressing c connected to b
   printf "Connecting to tmux session [$(($(ord $index) - 96))]\n"
   tmux attach -t "$($LIST[$(($(ord $index) - 96))] | cut -d \: -f $(($(ord $index) - 96)))"
 else
@@ -72,10 +74,8 @@ zshexit () {
   dirs -lv | cut -c 3- >> ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt;
   # cd after, to avoid accidentally including the directory
   cd ~/.oh-my-zsh/custom/plugins/start;
-  lines=`grep -c ".*" recent_dirs.txt`
-  cat recent_dirs.txt |
-    awk '!seen[$0]++' |
-      head -n $(($lines < 10 ? lines : 10))  |
-        > recent_dirs.txt;
+  cat recent_dirs.txt > temp;
+  cat temp | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
+  rm temp;
 }
 
