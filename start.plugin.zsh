@@ -1,5 +1,5 @@
 echo "Pick an index from below:"
-cat ~/.oh-my-zsh/custom/plugins/start/recent.txt
+cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt
 
 read -r index
 
@@ -10,5 +10,5 @@ else
   cd
 fi
 
-zshexit () { dirs -lv > ~/.oh-my-zsh/custom/plugins/start/recent.txt; }
+zshexit () { dirs -lv > ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt; }
 
