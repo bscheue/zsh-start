@@ -31,9 +31,9 @@ done
 
 
 tmux_dirs=~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt
-tmux_sessions=( "${(f)mapfile[$tmux_dirs]}" )
+tmux_dirs_lines=( "${(f)mapfile[$tmux_dirs]}" )
 integer IDXA=1
-integer tmux_sessions_len=$#tmux_sessions
+integer tmux_sessions_len=$#tmux_dirs_lines
 
 echo ""
 if [[ $sessions != 1 ]]
@@ -43,7 +43,7 @@ then
     echo "Currently in a tmux session"
   else
     echo "Running tmux sessions:"
-    for ITEM in $tmux_sessions;
+    for ITEM in $tmux_dirs_lines;
     do
       printf "[%s] %s\n" $(chr $((96 + $IDXA))) $ITEM
       (( IDXA++ ))
