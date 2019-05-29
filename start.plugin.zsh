@@ -1,7 +1,5 @@
 cat welcome.txt
 
-echo "Pick an index from below:"
-echo ""
 echo "Recently visited directories:"
 
 tmux ls > ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt 2> /dev/null
