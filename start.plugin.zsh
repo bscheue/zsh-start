@@ -1,9 +1,9 @@
+cat welcome.txt
+
 echo "Pick an index from below:"
 echo ""
 echo "Recently visited directories"
-cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt
 
-echo ""
 tmux ls > ~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt 2> /dev/null
 sessions=$?
 
@@ -19,12 +19,24 @@ ord() {
 
 
 zmodload zsh/mapfile
-FNAME=~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt
-FLINES=( "${(f)mapfile[$FNAME]}" )
-integer POS=1
-integer SIZE=$#FLINES
+recent_dirs=~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt
+recent_dirs_lines=( "${(f)mapfile[$recent_dirs]}" )
+integer IDXB=1
+integer recent_dirs_len=$#recent_dirs
 
-echo $sessions
+for ITEM in $recent_dirs_lines;
+do
+  printf "[%d] %s\n" $(($IDXB - 1)) $ITEM
+  (( IDXB++ ))
+done
+
+
+tmux_dirs=~/.oh-my-zsh/custom/plugins/start/tmux_dirs.txt
+tmux_sessions=( "${(f)mapfile[$tmux_dirs]}" )
+integer IDXA=1
+integer tmux_sessions_len=$#tmux_sessions
+
+echo ""
 if [[ $sessions != 1 ]]
 then
   if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]
@@ -32,10 +44,10 @@ then
     echo "Currently in a tmux session"
   else
     echo "Running tmux sessions:"
-    for ITEM in $FLINES;
+    for ITEM in $tmux_sessions;
     do
-      printf "[%s] %s\n" $(chr $((96 + $POS))) $ITEM
-      (( POS++ ))
+      printf "[%s] %s\n" $(chr $((96 + $IDXA))) $ITEM
+      (( IDXA++ ))
     done
   fi
 else
@@ -46,13 +58,22 @@ read -r index
 
 if [[ $index =~ [0-9] ]]
 then
-  cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | cut -c 3- | sed -n $(($index+1))p)"
-elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - 97)) -lt $SIZE ]]
+  cd "$(cat ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt | sed -n $(($index + 1))p)"
+elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - 97)) -lt $tmux_sessions_len ]]
 then
   tmux attach -t "$($LIST[$(($(ord $index) - 96))] | cut -d \: -f $(($(ord $index) - 96)))"
 else
   echo "Nothing selected"
 fi
 
-zshexit () { dirs -lv > ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt; }
+zshexit () {
+  dirs -lv | cut -c 3- >> ~/.oh-my-zsh/custom/plugins/start/recent_dirs.txt;
+  # cd after, to avoid accidentally including the directory
+  cd ~/.oh-my-zsh/custom/plugins/start;
+  lines=`grep -c ".*" recent_dirs.txt`
+  cat recent_dirs.txt |
+    awk '!seen[$0]++' |
+      head -n $(($lines < 10 ? lines : 10))  |
+        > recent_dirs.txt;
+}
 
