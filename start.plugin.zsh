@@ -69,12 +69,10 @@ then
   cd "$(cat recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
-  cd
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
     cut -d \: -f -1)
 else
-  cd
   echo "None selected"
 fi
 
