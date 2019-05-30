@@ -66,6 +66,12 @@ else
   echo "No running tmux sessions"
 fi
 
+if [[ -n "${ZSH_START_MARKS+1}" ]]
+then
+  printf "\nBookmarks:\n"
+  showmarks
+fi
+
 printf "\nSelect an option: "
 read -r index
 
@@ -78,6 +84,10 @@ then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
       cut -d \: -f -1)
+elif [[ $index =~ j[a-z] ]]
+then
+  echo "Jumping to bookmark ${index:1}"
+  jump ${index:1}
 else
   echo "None selected"
 fi
