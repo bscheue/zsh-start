@@ -29,3 +29,8 @@ Pressing a number along with enter will take you to that directory,
 while pressing a character will attach to the corresponding tmux session.
 Pressing any other key along with enter (or just enter itself) will continue to startup
 like normal and take you to your home directory.
+
+# Notes:
+* The start menu isn't shown when the current directory upon startup isn't \$HOME, as it's
+typical to want to stay in the same directory in these cases (eg calling `:terminal` within
+a Vim instance).

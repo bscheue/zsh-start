@@ -1,4 +1,10 @@
 hd=$(dirname ${(%):-%x})
+
+if [ $(pwd) != $HOME ]
+then
+  return
+fi
+
 touch $hd/tmux_dirs.txt
 touch $hd/recent_dirs.txt
 
@@ -45,7 +51,7 @@ integer tmux_sessions_len=$#tmux_dirs_lines
 echo ""
 if [[ $sessions != 1 ]]
 then
-  if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]
+  if [ -n "$TMUX" ]
   then
     echo "Currently in a tmux session"
   else
