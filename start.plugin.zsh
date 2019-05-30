@@ -77,7 +77,7 @@ read -r index
 
 if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
 then
-  printf "Going to directory [$(($index))]\n"
+  printf "Going to $(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)\n"
   cd "$(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)"
 elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
 then
@@ -86,7 +86,7 @@ then
       cut -d \: -f -1)
 elif [[ $index =~ j[a-z] ]]
 then
-  echo "Jumping to bookmark ${index:1}"
+  echo "Jumping to bookmark '${index:1}'"
   jump ${index:1}
 else
   echo "None selected"
