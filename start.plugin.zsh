@@ -66,10 +66,25 @@ else
   echo "No running tmux sessions"
 fi
 
+showmarks > $hd/showmarks.txt
+all_showmarks=$hd/showmarks.txt
+showmarks_lines=( "${(f)mapfile[$all_showmarks]}" )
+integer IDXC=1
+integer showmarks_len=$#all_showmarks
+
 if [[ -n "${ZSH_START_MARKS+1}" ]]
 then
+  # length of longest bookmark length
+  max_bookmark_len=$(cat $hd/showmarks.txt | cut -f -1 |
+          awk '{ print length($0) " " $0; }' $file |
+            sort -r -n | tail -1 | wc -m | sed 's/^[ \t]*//')
+  max_bookmark_len=$(($max_bookmark_len+3))
   printf "\nBookmarks:\n"
-  showmarks
+  for ITEM in $showmarks_lines;
+  do
+    printf "%-${max_bookmark_len}s %s\n" $(echo \[$ITEM | cut -f -1)] $(echo $ITEM | cut -f3)
+    (( IDXC++ ))
+  done
 fi
 
 printf "\nSelect an option: "
