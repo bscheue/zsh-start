@@ -77,18 +77,18 @@ elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sess
 then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
-    cut -d \: -f -1)
+      cut -d \: -f -1)
 else
   echo "None selected"
 fi
 
 
 zshexit () {
-  dirs -lv | cut -c 3- >> $hd/recent_dirs.txt;
+  dirs -lv | cut -c 3- | tail -r >> $hd/recent_dirs.txt;
   # cd after, to avoid accidentally including the directory
   cd $hd;
   cat recent_dirs.txt > temp;
-  cat temp | awk '!seen[$0]++' | tail -n 10 > recent_dirs.txt;
+  cat temp | tail -r |awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
   rm temp;
 }
 
