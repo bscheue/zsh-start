@@ -30,6 +30,15 @@ while pressing a character will attach to the corresponding tmux session.
 Pressing any other key along with enter (or just enter itself) will continue to startup
 like normal and take you to your home directory.
 
+### [`zshmarks`](https://github.com/jocelynmallon/zshmarks) Integration
+To set this up, put `ZSH_START_MARKS=1` in your `.zshrc` and follow the
+installation instructions for `zshmarks`.
+Further, make sure that `zshmarks` is loaded before `start`
+(source it first, or put it before `start` in your list of plugins).
+To use the integration, type `j` in front of the name of the mark you'd like to
+jump to. For example, in the above image, typing `jd` will jump to
+`~/config/dotfiles/`.
+
 # Notes
 * The start menu isn't shown when the current directory upon startup isn't \$HOME, as it's
 typical to want to stay in the same directory in these cases (eg calling `:terminal` within
