@@ -88,8 +88,10 @@ then
     jump $bm_name
     # pushd $(echo $ITEM | cut -f3
     dir=$(pwd) > /dev/null
-    # echo $dir
-    popd &> /dev/null
+    if [ $dir != $HOME ]
+    then
+      popd > /dev/null
+    fi
     printf "%-${max_bookmark_len}s %s\n" $(echo \[$ITEM | cut -f -1)] $dir
     (( IDXC++ ))
   done
