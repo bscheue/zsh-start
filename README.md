@@ -40,6 +40,6 @@ jump to. For example, in the above image, typing `jd` will jump to
 `/Users/brian/config/dotfiles/`.
 
 # Notes
-* The start menu isn't shown when the current directory upon startup isn't `\$HOME`, as it's
+* The start menu isn't shown when the current directory upon startup isn't `$HOME`, as it's
 typical to want to stay in the same directory in these cases (eg calling `:terminal` within
 a Vim instance).
