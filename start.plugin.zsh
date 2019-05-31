@@ -74,15 +74,23 @@ integer showmarks_len=$#all_showmarks
 
 if [[ -n "${ZSH_START_MARKS+1}" ]]
 then
-  # length of longest bookmark length
+  # length of longest bookmark name length
   max_bookmark_len=$(cat $hd/showmarks.txt | cut -f -1 |
           awk '{ print length($0) " " $0; }' $file |
             sort -r -n | tail -1 | wc -m | sed 's/^[ \t]*//')
   max_bookmark_len=$(($max_bookmark_len+3))
   printf "\nBookmarks:\n"
+  # TODO - fix the file path for bookmarks to be consistent with directories
+  # possible solution - dirname
   for ITEM in $showmarks_lines;
   do
-    printf "%-${max_bookmark_len}s %s\n" $(echo \[$ITEM | cut -f -1)] $(echo $ITEM | cut -f3)
+    bm_name=$(echo $ITEM | cut -f -1)
+    jump $bm_name
+    # pushd $(echo $ITEM | cut -f3
+    dir=$(pwd) > /dev/null
+    # echo $dir
+    popd &> /dev/null
+    printf "%-${max_bookmark_len}s %s\n" $(echo \[$ITEM | cut -f -1)] $dir
     (( IDXC++ ))
   done
 fi
