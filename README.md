@@ -37,9 +37,9 @@ Further, make sure that `zshmarks` is loaded before `start`
 (source it first, or put it before `start` in your list of plugins).
 To use the integration, type `j` in front of the name of the mark you'd like to
 jump to. For example, in the above image, typing `jd` will jump to
-`~/config/dotfiles/`.
+`/Users/brian/config/dotfiles/`.
 
 # Notes
-* The start menu isn't shown when the current directory upon startup isn't \$HOME, as it's
+* The start menu isn't shown when the current directory upon startup isn't `\$HOME`, as it's
 typical to want to stay in the same directory in these cases (eg calling `:terminal` within
 a Vim instance).
