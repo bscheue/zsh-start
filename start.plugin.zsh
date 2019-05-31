@@ -80,13 +80,10 @@ then
             sort -r -n | tail -1 | wc -m | sed 's/^[ \t]*//')
   max_bookmark_len=$(($max_bookmark_len+3))
   printf "\nBookmarks:\n"
-  # TODO - fix the file path for bookmarks to be consistent with directories
-  # possible solution - dirname
   for ITEM in $showmarks_lines;
   do
     bm_name=$(echo $ITEM | cut -f -1)
     jump $bm_name
-    # pushd $(echo $ITEM | cut -f3
     dir=$(pwd) > /dev/null
     if [ $dir != $HOME ]
     then
