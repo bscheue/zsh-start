@@ -42,4 +42,5 @@ jump to. For example, in the above image, typing `jp` will jump to
 # Notes
 * The start menu isn't shown when the current directory upon startup isn't `$HOME`, as it's
 typical to want to stay in the same directory in these cases (eg calling `:terminal` within
-a Vim instance).
+a Vim instance or splitting a pane in a tmux session).
+* Current tmux sessions aren't shown when already in a tmux session.
