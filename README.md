@@ -36,8 +36,8 @@ installation instructions for `zshmarks`.
 Further, make sure that `zshmarks` is loaded before `start`
 (source it first, or put it before `start` in your list of plugins).
 To use the integration, type `j` in front of the name of the mark you'd like to
-jump to. For example, in the above image, typing `jd` will jump to
-`/Users/brian/config/dotfiles/`.
+jump to. For example, in the above image, typing `jp` will jump to
+`/Users/brian/Documents/project`.
 
 # Notes
 * The start menu isn't shown when the current directory upon startup isn't `$HOME`, as it's
