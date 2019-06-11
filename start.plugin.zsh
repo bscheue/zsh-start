@@ -78,7 +78,7 @@ then
   max_bookmark_len=$(cat $hd/showmarks.txt | cut -f -1 |
           awk '{ print length($0) " " $0; }' $file |
             sort -r -n | tail -1 | wc -m | sed 's/^[ \t]*//')
-  max_bookmark_len=$(($max_bookmark_len+3))
+  max_bookmark_len=$(($max_bookmark_len))
   printf "\nBookmarks:\n"
   for ITEM in $showmarks_lines;
   do
