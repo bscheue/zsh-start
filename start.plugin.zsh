@@ -89,7 +89,7 @@ then
     then
       popd > /dev/null
     fi
-    printf "%-${max_bookmark_len}s %s\n" $(echo \[$ITEM | cut -f -1)] $dir
+    printf "%-${max_bookmark_len}s %s\n" $(echo \[j$ITEM | cut -f -1)] $dir
     (( IDXC++ ))
   done
 fi
