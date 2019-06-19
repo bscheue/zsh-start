@@ -117,10 +117,10 @@ fi
 
 zshexit () {
   cat $hd/recent_dirs.txt | tail -r > $hd/temp
-  dirs -lv | cut -c 3- | tail -r >> $hd/temp;
+  dirs -lv | cut -c 3- | tail -r >> $hd/temp
   # cd after, to avoid accidentally including the directory
-  cd $hd;
-  cat temp | tail -r | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt;
-  rm temp;
+  cd $hd
+  cat temp | tail -r | awk '!seen[$0]++' | head -n 10 > recent_dirs.txt
+  rm temp
 }
 
