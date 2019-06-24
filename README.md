@@ -30,6 +30,13 @@ while pressing a character will attach to the corresponding tmux session.
 Pressing any other key along with enter (or just enter itself) will continue to startup
 like normal and take you to your home directory.
 
+### Options
+All of the features of this plugin are optional.
+To turn off any of the features, add the following to your `.zshrc`:
+* `ZSH_START_WELCOME_MESSAGE=0` disables the ascii art welcome message.
+* `ZSH_START_RECENT=0` disables the option to select a recently visited directory.
+* `ZSH_START_TMUX=0` disables the display of running tmux sessions.
+
 ### [`zshmarks`](https://github.com/jocelynmallon/zshmarks) Integration
 To set this up, put `ZSH_START_MARKS=1` in your `.zshrc` and follow the
 installation instructions for `zshmarks`.
