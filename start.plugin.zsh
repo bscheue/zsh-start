@@ -8,12 +8,11 @@ fi
 touch $hd/tmux_dirs.txt
 touch $hd/recent_dirs.txt
 
-cat $hd/welcome.txt
+if [[ -z ${ZSH_START_WELCOME_MESSAGE} ]]
+then
+  cat $hd/welcome.txt
+fi
 
-echo "Recently visited directories:"
-
-tmux ls > $hd/tmux_dirs.txt 2> /dev/null
-sessions=$?
 
 # offset for one indexing into the alphabet using unicode
 ord_offset=96
@@ -31,43 +30,54 @@ ord() {
 
 
 zmodload zsh/mapfile
-recent_dirs=$hd/recent_dirs.txt
-recent_dirs_lines=( "${(f)mapfile[$recent_dirs]}" )
-integer IDXB=1
-integer recent_dirs_len=$#recent_dirs
-
-for ITEM in $recent_dirs_lines;
-do
-  printf "[%d] %s\n" $(($IDXB - 1)) $ITEM
-  (( IDXB++ ))
-done
-
-
-tmux_dirs=$hd/tmux_dirs.txt
-tmux_dirs_lines=( "${(f)mapfile[$tmux_dirs]}" )
-integer IDXA=1
-integer tmux_sessions_len=$#tmux_dirs_lines
-
-echo ""
-if [[ $sessions != 1 ]]
+if [[ -z ${ZSH_START_RECENT} ]]
 then
-  if [ -n "$TMUX" ]
-  then
-    echo "Currently in a tmux session"
-  else
-    echo "Running tmux sessions:"
-    for ITEM in $tmux_dirs_lines;
-    do
-      printf "[%s] %s\n" $(chr $(($ord_offset + $IDXA))) $ITEM
-      (( IDXA++ ))
-    done
-  fi
-else
-  echo "No running tmux sessions"
+  echo "Recently visited directories:"
+
+  recent_dirs=$hd/recent_dirs.txt
+  recent_dirs_lines=( "${(f)mapfile[$recent_dirs]}" )
+  integer IDXB=1
+  integer recent_dirs_len=$#recent_dirs
+
+  for ITEM in $recent_dirs_lines;
+  do
+    printf "[%d] %s\n" $(($IDXB - 1)) $ITEM
+    (( IDXB++ ))
+  done
 fi
 
 
-if [[ -n "${ZSH_START_MARKS+1}" ]]
+if [[ -z ${ZSH_START_TMUX} ]]
+then
+  tmux ls > $hd/tmux_dirs.txt 2> /dev/null
+  sessions=$?
+
+  tmux_dirs=$hd/tmux_dirs.txt
+  tmux_dirs_lines=( "${(f)mapfile[$tmux_dirs]}" )
+  integer IDXA=1
+  integer tmux_sessions_len=$#tmux_dirs_lines
+
+  echo ""
+  if [[ $sessions != 1 ]]
+  then
+    if [ -n "$TMUX" ]
+    then
+      echo "Currently in a tmux session"
+    else
+      echo "Running tmux sessions:"
+      for ITEM in $tmux_dirs_lines;
+      do
+        printf "[%s] %s\n" $(chr $(($ord_offset + $IDXA))) $ITEM
+        (( IDXA++ ))
+      done
+    fi
+  else
+    echo "No running tmux sessions"
+  fi
+fi
+
+
+if [[ -n "${ZSH_START_MARKS}" ]];
 then
   showmarks > $hd/showmarks.txt
   all_showmarks=$hd/showmarks.txt
@@ -97,11 +107,11 @@ fi
 printf "\nSelect an option: "
 read -r index
 
-if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]]
+if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]] && [[ -z ${ZSH_START_RECENT} ]]
 then
   printf "Going to $(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)\n"
   cd "$(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)"
-elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]]
+elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]] && [[ -z ${ZSH_START_TMUX} ]]
 then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
