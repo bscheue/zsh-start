@@ -31,19 +31,12 @@ Pressing any other key along with enter (or just enter itself) will continue to 
 like normal and take you to your home directory.
 
 ### Options
-<<<<<<< HEAD
 All of the features of this plugin are optional. Disabling a feature also prevents the user from
 selecting an option that corresponds to the feature (e.g. selecting `0` after disabling
 recently visited directories would not be recognized as a valid input).
 To turn off any of the features, add the following to your `.zshrc`:
 * `ZSH_START_WELCOME_MESSAGE=0` disables the ascii art welcome message.
 * `ZSH_START_RECENT=0` disables the display of recently visited directories.
-=======
-All of the features of this plugin are optional.
-To turn off any of the features, add the following to your `.zshrc`:
-* `ZSH_START_WELCOME_MESSAGE=0` disables the ascii art welcome message.
-* `ZSH_START_RECENT=0` disables the option to select a recently visited directory.
->>>>>>> 8811d16a4e51fecdc5c37414ed630040dba84606
 * `ZSH_START_TMUX=0` disables the display of running tmux sessions.
 
 ### [`zshmarks`](https://github.com/jocelynmallon/zshmarks) Integration
