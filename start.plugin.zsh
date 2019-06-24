@@ -116,7 +116,7 @@ then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
       cut -d \: -f -1)
-elif [[ $index =~ j[a-z] ]]
+elif [[ $index =~ j[a-z] ]] && [[ -n "${ZSH_START_MARKS}" ]]
 then
   echo "Jumping to bookmark '${index:1}'"
   jump ${index:1}
