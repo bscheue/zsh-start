@@ -22,13 +22,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 Then, add this plugin to the list of plugins for Oh My Zsh to load in your `.zshrc`.
 
 # Usage
-Use this plugin to jump to recently visited directories upon starting zsh.
+Use this plugin to get to where you want to more quickly after starting zsh.
 Upon opening, you'll be shown your ten (distinct) most recently visited directories
 numbered `0-9`, along with any running tmux sessions lettered starting at `a`.
-Pressing a number along with enter will take you to that directory,
-while pressing a character will attach to the corresponding tmux session.
-Pressing any other key along with enter (or just enter itself) will continue to startup
-like normal and take you to your home directory.
+Entering a number along with enter will take you to that directory,
+while entering a character will attach to the corresponding tmux session.
+Entering anything else will be executed as a normal zsh command.
+
 
 ### Options
 All of the features of this plugin are optional. Disabling a feature also prevents the user from
