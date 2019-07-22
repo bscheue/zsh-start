@@ -107,22 +107,23 @@ fi
 printf "\nSelect an option: "
 read -r index
 
-if [[ $index =~ [0-9] ]] && [[ $index -lt recent_dirs_len ]] && [[ -z ${ZSH_START_RECENT} ]]
+if [[ $index == [0-9] ]] && [[ $index -lt recent_dirs_len ]] && [[ -z ${ZSH_START_RECENT} ]]
 then
   printf "Going to $(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)\n"
   cd "$(cat $hd/recent_dirs.txt | sed -n $(($index + 1))p)"
-elif [[ $index =~ [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]] && [[ -z ${ZSH_START_TMUX} ]]
+elif [[ $index == [a-z] ]] && [[ $(($(ord $index) - $ord_offset)) -lt $tmux_sessions_len ]] && [[ -z ${ZSH_START_TMUX} ]]
 then
+  echo $index
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
       cut -d \: -f -1)
-elif [[ $index =~ j[a-z] ]] && [[ -n "${ZSH_START_MARKS}" ]]
+elif [[ $index == j[a-z] ]] && [[ -n "${ZSH_START_MARKS}" ]]
 then
   echo "Jumping to bookmark '${index:1}'"
   jump ${index:1}
 else
   printf "None selected. Executing as a regular command.\n\n"
-  eval ${index}
+  eval "$index"
 fi
 
 
