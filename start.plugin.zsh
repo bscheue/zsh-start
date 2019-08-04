@@ -92,6 +92,7 @@ then
   printf "\nBookmarks:\n"
   for ITEM in $showmarks_lines;
   do
+    pushd $HOME > /dev/null
     bm_name=$(echo $ITEM | cut -f -1)
     jump $bm_name
     dir=$(pwd) > /dev/null
@@ -102,6 +103,7 @@ then
     printf "%-${max_bookmark_len}s %s\n" $(echo \[j$ITEM | cut -f -1)] $dir
     (( IDXC++ ))
   done
+  cd $HOME
 fi
 
 printf "\nSelect an option: "
@@ -117,7 +119,7 @@ then
   tmux attach -t $(cat $hd/tmux_dirs.txt |
     sed -n $(($(ord $index) - $ord_offset))p |
       cut -d \: -f -1)
-elif [[ $index == j[a-z] ]] && [[ -n "${ZSH_START_MARKS}" ]]
+elif [[ $index =~ "j[a-z]" ]] && [[ -n "${ZSH_START_MARKS}" ]]
 then
   echo "Jumping to bookmark '${index:1}'"
   jump ${index:1}
