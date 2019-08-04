@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 hd=$(dirname ${(%):-%x})
 
 if [ $(pwd) != $HOME ]
