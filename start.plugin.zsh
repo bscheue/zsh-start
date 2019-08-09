@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 hd=$(dirname ${(%):-%x})
 
+# automatically push directories to stack after cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
 if [ $(pwd) != $HOME ]
 then
   return

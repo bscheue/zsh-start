@@ -54,4 +54,8 @@ typical to want to stay in the same directory in these cases (eg calling `:termi
 a Vim instance or splitting a pane in a tmux session).
 * Current tmux sessions aren't shown when already in a tmux session.
 * This plugin looks at the directory stack upon shell exit to determine recently visited directories.
-  To set this option, put `setopt autopushd` in your `.zshrc` (note that oh-my-zsh sets this option by default).
+  To do this reliably, it sets the following options (oh-my-zsh enables these by default):
+  * `setopt auto_pushd`
+  * `setopt pushd_ignore_dups`
+  * `setopt pushdminus`
+See the [zshoptions manual page](https://www.mankier.com/1/zshoptions) for more details).
