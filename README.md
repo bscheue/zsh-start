@@ -53,3 +53,5 @@ jump to. For example, in the above image, typing `jp` will jump to
 typical to want to stay in the same directory in these cases (eg calling `:terminal` within
 a Vim instance or splitting a pane in a tmux session).
 * Current tmux sessions aren't shown when already in a tmux session.
+* This plugin looks at the directory stack upon shell exit to determine recently visited directories.
+  To set this option, put `setopt autopushd` in your `.zshrc` (note that oh-my-zsh sets this option by default).
