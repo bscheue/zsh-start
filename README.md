@@ -55,7 +55,5 @@ a Vim instance or splitting a pane in a tmux session).
 * Current tmux sessions aren't shown when already in a tmux session.
 * This plugin looks at the directory stack upon shell exit to determine recently visited directories.
   To do this reliably, it sets the following options (oh-my-zsh enables these by default):
-  * `setopt auto_pushd`
-  * `setopt pushdminus`
-
-See the [zshoptions manual page](https://www.mankier.com/1/zshoptions) for more details).
+  * [`setopt auto_pushd`](https://www.mankier.com/1/zshoptions)
+  * [`setopt pushdminus`](https://www.mankier.com/1/zshoptions)
